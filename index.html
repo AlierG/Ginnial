@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>无障碍网页设计示范</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      background: #0b1b2b;
+      color: #f7f9fc;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #ffcc33;
+    }
+
+    a:focus {
+      outline: 3px solid #ffcc33;
+      outline-offset: 2px;
+    }
+
+    header,
+    main,
+    footer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    header {
+      background: #102840;
+    }
+
+    header h1 {
+      margin-top: 0;
+      font-size: 2rem;
+    }
+
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      text-decoration: underline;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 1rem;
+      background: #ffcc33;
+      color: #102840;
+      padding: 0.5rem 1rem;
+      z-index: 100;
+      transition: top 0.3s;
+    }
+
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    section {
+      background: #152b44;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    section h2 {
+      margin-top: 0;
+      font-size: 1.6rem;
+    }
+
+    .example-img {
+      width: 100%;
+      max-width: 480px;
+      border-radius: 8px;
+      border: 4px solid #ffcc33;
+    }
+
+    .contrast-example {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .contrast-example div {
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    .contrast-good {
+      background: #102840;
+      color: #ffcc33;
+    }
+
+    .contrast-bad {
+      background: #eef2ff;
+      color: #b0c4ff;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      font-weight: 600;
+    }
+
+    input,
+    textarea,
+    select,
+    button {
+      font: inherit;
+      padding: 0.75rem;
+      border-radius: 6px;
+      border: 2px solid #ffcc33;
+      background: #0b1b2b;
+      color: inherit;
+    }
+
+    button {
+      background: #ffcc33;
+      color: #102840;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    button:hover,
+    button:focus {
+      background: #ffd966;
+    }
+
+    .checklist {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .checklist li::before {
+      content: "✔";
+      margin-right: 0.5rem;
+      color: #7fff94;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #d0def0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header>
+    <h1>无障碍网页设计示范</h1>
+    <p>本页面以欧洲无障碍法案（EAA）等国际标准为指导，既讲解无障碍的关键要求，又以自身实现作为示范。</p>
+    <nav aria-label="页面章节导航">
+      <ul>
+        <li><a href="#structure">语义结构</a></li>
+        <li><a href="#text-alternatives">文本替代</a></li>
+        <li><a href="#contrast">颜色对比</a></li>
+        <li><a href="#keyboard">键盘与焦点</a></li>
+        <li><a href="#forms">表单</a></li>
+        <li><a href="#aria">ARIA 与辅助技术</a></li>
+        <li><a href="#checklist">检查清单</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section id="structure">
+      <h2>语义结构与层次</h2>
+      <p>语义化 HTML 能帮助屏幕阅读器正确理解页面层级，也是遵循 EAA 与 WCAG 的基础。本示例使用 <code>&lt;header&gt;</code>、<code>&lt;main&gt;</code>、<code>&lt;nav&gt;</code>、<code>&lt;section&gt;</code> 与 <code>&lt;footer&gt;</code> 等元素来体现结构。</p>
+      <ul>
+        <li>标题使用按层级递进的 <code>&lt;h1&gt;~&lt;h3&gt;</code>。</li>
+        <li>导航区添加 <code>aria-label</code> 以说明用途。</li>
+        <li>主要内容区使用 <code>tabindex="-1"</code>，配合跳转链接支持键盘快速定位。</li>
+      </ul>
+    </section>
+
+    <section id="text-alternatives">
+      <h2>文本替代内容</h2>
+      <p>图像、图标等非文本内容需要提供清晰、简洁的替代文本。下方示例图片使用 <code>alt</code> 属性描述其含义，而非简单重复文件名。</p>
+      <figure>
+        <img class="example-img" src="https://via.placeholder.com/480x220.png?text=Inclusive+Design" alt="一个象征包容性设计的插画：多样化人群围绕电脑讨论。">
+        <figcaption>图片说明文字同样可提供额外上下文，帮助使用屏幕阅读器的访客理解内容。</figcaption>
+      </figure>
+      <p>实现要点：</p>
+      <ul>
+        <li>对纯装饰性图片可设置 <code>alt=""</code>，并通过 CSS 背景或 <code>role="presentation"</code> 标记。</li>
+        <li>为图表提供文字数据概述或链接到完整数据表。</li>
+      </ul>
+    </section>
+
+    <section id="contrast">
+      <h2>颜色对比</h2>
+      <p>文本与背景的对比度需要满足 WCAG 2.1 AA 标准：普通文本至少 4.5:1，大字号文本至少 3:1。示例对比如下：</p>
+      <div class="contrast-example" role="group" aria-label="颜色对比示例">
+        <div class="contrast-good">
+          <h3>合格的对比度</h3>
+          <p>深色背景搭配亮黄色文字，符合 7:1 以上的对比度要求。</p>
+        </div>
+        <div class="contrast-bad">
+          <h3>不合格的对比度</h3>
+          <p>浅蓝背景配浅色文字，对比度不足，低视力用户难以阅读。</p>
+        </div>
+      </div>
+      <p>设计时可使用 <a href="https://webaim.org/resources/contrastchecker/">Contrast Checker</a> 或浏览器开发者工具进行验证。</p>
+    </section>
+
+    <section id="keyboard">
+      <h2>键盘操作与焦点管理</h2>
+      <p>确保所有交互元素都可通过键盘访问，焦点状态清晰可见。本页提供顶部“跳到主要内容”链接，并通过 <code>:focus</code> 样式突出焦点。</p>
+      <ul>
+        <li>焦点顺序应与视觉顺序一致。</li>
+        <li>避免在焦点进入时触发突然的内容变化。</li>
+        <li>必要时通过 <code>tabindex</code> 控制顺序，但尽量使用默认流。</li>
+      </ul>
+    </section>
+
+    <section id="forms">
+      <h2>无障碍表单</h2>
+      <p>表单控件需要配对的 <code>&lt;label&gt;</code>，并提供清晰的错误反馈。以下示例演示无障碍反馈方式：</p>
+      <form aria-describedby="form-hint">
+        <p id="form-hint">所有字段均可通过键盘访问，提交按钮在键盘操作下同样可用。</p>
+        <div class="form-group">
+          <label for="name">姓名</label>
+          <input id="name" name="name" type="text" required aria-required="true" placeholder="请输入您的姓名">
+        </div>
+        <div class="form-group">
+          <label for="email">电子邮箱</label>
+          <input id="email" name="email" type="email" required aria-required="true" placeholder="example@example.com">
+        </div>
+        <div class="form-group">
+          <label for="feedback">想了解的无障碍主题</label>
+          <textarea id="feedback" name="feedback" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="assistive-tech">常用辅助技术</label>
+          <select id="assistive-tech" name="assistive-tech">
+            <option value="screen-reader">屏幕阅读器</option>
+            <option value="screen-magnifier">屏幕放大镜</option>
+            <option value="switch-control">开关控制</option>
+            <option value="voice-input">语音输入</option>
+            <option value="none">暂无</option>
+          </select>
+        </div>
+        <button type="submit">提交示例</button>
+      </form>
+      <p>常见实践：</p>
+      <ul>
+        <li>在错误提示上使用 <code>aria-live="polite"</code>，确保屏幕阅读器可感知。</li>
+        <li>为必填项添加 <code>required</code> 与 <code>aria-required</code> 双重声明。</li>
+        <li>使用清晰的占位符与说明文本，避免依赖颜色区分状态。</li>
+      </ul>
+    </section>
+
+    <section id="aria">
+      <h2>合理使用 ARIA 与辅助技术支持</h2>
+      <p>ARIA 用于补充原生语义，而非替代。以下是本页应用的示例：</p>
+      <ul>
+        <li>导航菜单使用 <code>aria-label</code> 描述用途。</li>
+        <li>颜色对比示例容器使用 <code>role="group"</code> 与 <code>aria-label</code> 提供额外上下文。</li>
+        <li>表单使用 <code>aria-describedby</code> 将提示文本与表单关联。</li>
+      </ul>
+      <p>实践提示：</p>
+      <ul>
+        <li>先选择语义正确的 HTML 元素，再考虑添加 ARIA 属性。</li>
+        <li>避免使用会破坏屏幕阅读器体验的 <code>role="application"</code> 等属性。</li>
+        <li>定期使用 NVDA、VoiceOver 等辅助技术进行测试。</li>
+      </ul>
+    </section>
+
+    <section id="checklist">
+      <h2>快速自检清单</h2>
+      <p>在发布前，可依据以下清单自测是否符合 EAA 等国际标准：</p>
+      <ul class="checklist">
+        <li>所有非文本内容都有恰当的替代文本。</li>
+        <li>文本对比度符合 WCAG 2.1 AA 要求。</li>
+        <li>提供键盘可访问的导航与焦点可视化。</li>
+        <li>表单控件有明确标签与错误提示机制。</li>
+        <li>动态内容通过 <code>aria-live</code> 或其他方式告知辅助技术。</li>
+        <li>页面语义结构清晰，使用正确的标题层级。</li>
+        <li>避免仅用颜色传达信息，提供文字或图标辅助。</li>
+        <li>支持多语言或提供语言标记 <code>lang</code> 属性。</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>本示范页面遵循欧洲无障碍法案（EAA）与 WCAG 2.1 AA 要求，可作为团队设计无障碍体验的起点。</p>
+  </footer>
+</body>
+</html>
